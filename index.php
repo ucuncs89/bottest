@@ -23,7 +23,7 @@ $bot->cmd('/all', function () {
     ];
     return Bot::sendMessage($text, $options);
 });
-$bot->cmd('/dkijakarta', function () {
+$bot->cmd('/info dkijakarta|/info dki', function () {
     // Get message properties
     $message = Bot::message();
     $name = $message['from']['first_name'];
@@ -34,6 +34,24 @@ $bot->cmd('/dkijakarta', function () {
     $data = json_decode($lokasi, true);
 
     $text = 'Info di <b>'.$data[0]['attributes']['Provinsi'].'</b> Data Positif <code>'.$data[0]['attributes']['Kasus_Posi'].'</code> Sembuh <code>'.$data[0]['attributes']['Kasus_Semb'].'</code> Meninggal<code>'.$data1[0]['attributes']['Kasus_Meni'].'</code>';
+    $options = [
+        'parse_mode' => 'html',
+        'reply' => true,
+    ];
+    return Bot::sendMessage($text, $options);
+});
+
+$bot->cmd('/info jawabarat', function () {
+    // Get message properties
+    $message = Bot::message();
+    $name = $message['from']['first_name'];
+    $userId = $message['from']['id'];
+    
+    $file = "https://api.kawalcorona.com/indonesia/provinsi";
+    $lokasi = file_get_contents($file);
+    $data = json_decode($lokasi, true);
+
+    $text = 'Info di <b>'.$data[1]['attributes']['Provinsi'].'</b> Data Positif <code>'.$data[1]['attributes']['Kasus_Posi'].'</code> Sembuh <code>'.$data[1]['attributes']['Kasus_Semb'].'</code> Meninggal <code>'.$data1[1]['attributes']['Kasus_Meni'].'</code>';
     $options = [
         'parse_mode' => 'html',
         'reply' => true,
