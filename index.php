@@ -7,17 +7,8 @@ $bot = new PHPTelebot('1086380132:AAFkV2Bbjp1lOqoQSRoMawMwDdHGNKnTqZU', '@InfoMo
 // Simple answer
 $bot->cmd('/start', 'Hi, human! I am a bot.');
 
-// Simple echo command
-$bot->cmd('/echo|/say', function ($text) {
-    if ($text == '') {
-        $text = 'Command usage: /echo [text] or /say [text]';
-    }
-
-    return Bot::sendMessage($text);
-});
-
 // Simple whoami command
-$bot->cmd('/info', function () {
+$bot->cmd('/all', function () {
     // Get message properties
     $message = Bot::message();
     $name = $message['from']['first_name'];
@@ -36,24 +27,26 @@ $bot->cmd('/info', function () {
     return Bot::sendMessage($text, $options);
 });
 
-// slice text by space
-$bot->cmd('/split', function ($one, $two, $three) {
-    $text = "First word: $one\n";
-    $text .= "Second word: $two\n";
-    $text .= "Third word: $three";
+$bot->cmd('info jawa barat||info jabar', function () {
+    // Get message properties
+    $message = Bot::message();
+    $name = $message['from']['first_name'];
+    $userId = $message['from']['id'];
+    
+    $file = "https://api.kawalcorona.com/indonesia/";
+    $anggota = file_get_contents($file);
+    $data = json_decode($anggota, true);
 
-    return Bot::sendMessage($text);
+    $text = 'Info di <b>'.$data[0]['name'].'</b> Data Positif <code>'.$data[0]['positif'].'</code> Sembuh <code>'.$data[0]['sembuh'].'</code> Meninggal<code>'.$data[0]['meninggal'].'</code>';
+    $options = [
+        'parse_mode' => 'html',
+        'reply' => true,
+    ];
+
+    return Bot::sendMessage($text, $options);
 });
 
-/* simple file upload
-$bot->cmd('/upload', function () {
-    $file = './composer.json';
-
-    return Bot::sendDocument($file);
-});*/
-
-// inline keyboard
-$bot->cmd('/keyboard', function () {
+$bot->cmd('/about', function () {
     $keyboard[] = [
         ['text' => 'PHPTelebot', 'url' => 'https://github.com/radyakaze/phptelebot'],
         ['text' => 'Haru bot', 'url' => 'https://telegram.me/harubot'],
@@ -62,13 +55,9 @@ $bot->cmd('/keyboard', function () {
         'reply_markup' => ['inline_keyboard' => $keyboard],
     ];
 
-    return Bot::sendMessage('Inline keyboard', $options);
+    return Bot::sendMessage('About', $options);
 });
 
-// custom regex
-$bot->regex('/\/number ([0-9]+)/i', function ($matches) {
-    return Bot::sendMessage($matches[1]);
-});
 
 // Inline
 $bot->on('inline', function ($text) {
