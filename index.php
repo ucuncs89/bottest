@@ -6,11 +6,6 @@ $bot = new PHPTelebot('1086380132:AAFkV2Bbjp1lOqoQSRoMawMwDdHGNKnTqZU', '@InfoMo
 
 // Simple answer
 $bot->cmd('/start', 'Hi, human! I am a bot.');
-
-// Simple echo command
-
-
-// Simple whoami command
 $bot->cmd('/all', function () {
     // Get message properties
     $message = Bot::message();
@@ -26,9 +21,26 @@ $bot->cmd('/all', function () {
         'parse_mode' => 'html',
         'reply' => true,
     ];
-
     return Bot::sendMessage($text, $options);
 });
+$bot->cmd('/dkijakarta', function () {
+    // Get message properties
+    $message = Bot::message();
+    $name = $message['from']['first_name'];
+    $userId = $message['from']['id'];
+    
+    $file = "https://api.kawalcorona.com/indonesia/provinsi";
+    $anggota = file_get_contents($file);
+    $data = json_decode($anggota, true);
+
+    $text = 'Info di <b>'.$data1[0]['attributes']['Provinsi'].'</b> Data Positif <code>'.$data1[0]['attributes']['Kasus_Posi'].'</code> Sembuh <code>'.$data1[0]['attributes']['Kasus_Semb'].'</code> Meninggal<code>'.$data1[0]['attributes']['Kasus_Meni'].'</code>';
+    $options = [
+        'parse_mode' => 'html',
+        'reply' => true,
+    ];
+    return Bot::sendMessage($text, $options);
+});
+
 // inline keyboard
 $bot->cmd('/about', function () {
     $keyboard[] = [
