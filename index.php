@@ -5,7 +5,7 @@ require_once __DIR__.'/src/PHPTelebot.php';
 $bot = new PHPTelebot('1086380132:AAFkV2Bbjp1lOqoQSRoMawMwDdHGNKnTqZU', '@InfoMonitorBot');
 
 // Simple answer
-$bot->cmd('*', 'Hi, human! I am a bot.');
+$bot->cmd('/start', 'Hi, human! I am a bot.');
 
 // Simple echo command
 $bot->cmd('/echo|/say', function ($text) {
@@ -27,7 +27,7 @@ $bot->cmd('/info', function () {
     $anggota = file_get_contents($file);
     $data = json_decode($anggota, true);
 
-    $text = 'Info <b>'.$data[0]['name'].'</b> Data Sembuh <code>'.$data[0]['sembuh'].'</code>';
+    $text = 'Info Di <b>'.$data[0]['name'].'</b> <br> Data Sembuh = <code>'.$data[0]['positif'].'</code> <br> Data Sembuh = <code>'.$data[0]['sembuh'].'</code> <br> Data Meninggal = <code>'.$data[0]['sembuh'].'</code>';
     $options = [
         'parse_mode' => 'html',
         'reply' => true,
@@ -45,12 +45,12 @@ $bot->cmd('/split', function ($one, $two, $three) {
     return Bot::sendMessage($text);
 });
 
-// simple file upload
+/* simple file upload
 $bot->cmd('/upload', function () {
     $file = './composer.json';
 
     return Bot::sendDocument($file);
-});
+});*/
 
 // inline keyboard
 $bot->cmd('/keyboard', function () {
