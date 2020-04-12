@@ -27,7 +27,7 @@ $bot->cmd('/info', function () {
     $anggota = file_get_contents($file);
     $data = json_decode($anggota, true);
 
-    $text = 'Info di <b>'.$data[0]['name'].'</b> <p> Data Positif <code>'.$data[0]['positif'].'</code></p><p>Sembuh <code>'.$data[0]['sembuh'].'</code></p><p> Meninggal<code>'.$data[0]['meninggal'].'</code></p>';
+    $text = 'Info di <b>'.$data[0]['name'].'</b> Data Positif <code>'.$data[0]['positif'].'</code> Sembuh <code>'.$data[0]['sembuh'].'</code> Meninggal<code>'.$data[0]['meninggal'].'</code>';
     $options = [
         'parse_mode' => 'html',
         'reply' => true,
