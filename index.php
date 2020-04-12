@@ -5,7 +5,7 @@ require_once __DIR__.'/src/PHPTelebot.php';
 $bot = new PHPTelebot('1086380132:AAFkV2Bbjp1lOqoQSRoMawMwDdHGNKnTqZU', '@InfoMonitorBot');
 
 // Simple answer
-$bot->cmd('/start', 'Hi, human! I am a bot.');
+$bot->cmd('*', 'Hi, human! I am a bot.');
 
 // Simple echo command
 $bot->cmd('/echo|/say', function ($text) {
@@ -19,33 +19,24 @@ $bot->cmd('/echo|/say', function ($text) {
 // Simple whoami command
 $bot->cmd('/info', function () {
     // Get message properties
-    // File json yang akan dibaca (full path file)
-$file = "https://api.kawalcorona.com/indonesia/";
-
-// Mendapatkan file json
-$anggota = file_get_contents($file);
-
-// Mendecode anggota.json
-$data = json_decode($anggota, true);
-
-// Membaca data array menggunakan foreach
-    //echo $data[0]['sembuh']. "<br>";
-    //echo $data[0]['positif']. "<br>";
-    //echo $data[0]['name']. "<br>";
-    
     $message = Bot::message();
     $name = $message['from']['first_name'];
     $userId = $message['from']['id'];
-    $text = 'Info <b>'.$data[0]['name'].'</b> <br> Positif = '.$data[0]['positif'].'</br>';
+    
+    $file = "https://api.kawalcorona.com/indonesia/";
+    $anggota = file_get_contents($file);
+    $data = json_decode($anggota, true);
+
+    $text = 'Info <b>'.$data[0]['name'].'</b> Data Sembuh <code>'.$data[0]['sembuh'].'</code>';
     $options = [
         'parse_mode' => 'html',
         'reply' => true,
-    ]; */
+    ];
 
     return Bot::sendMessage($text, $options);
 });
 
-//slice text by space
+// slice text by space
 $bot->cmd('/split', function ($one, $two, $three) {
     $text = "First word: $one\n";
     $text .= "Second word: $two\n";
