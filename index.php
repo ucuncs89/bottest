@@ -8,16 +8,10 @@ $bot = new PHPTelebot('1086380132:AAFkV2Bbjp1lOqoQSRoMawMwDdHGNKnTqZU', '@InfoMo
 $bot->cmd('/start', 'Hi, human! I am a bot.');
 
 // Simple echo command
-$bot->cmd('/echo|/say', function ($text) {
-    if ($text == '') {
-        $text = 'Command usage: /echo [text] or /say [text]';
-    }
 
-    return Bot::sendMessage($text);
-});
 
 // Simple whoami command
-$bot->cmd('/info', function () {
+$bot->cmd('/all', function () {
     // Get message properties
     $message = Bot::message();
     $name = $message['from']['first_name'];
@@ -35,40 +29,20 @@ $bot->cmd('/info', function () {
 
     return Bot::sendMessage($text, $options);
 });
-
-// slice text by space
-$bot->cmd('/split', function ($one, $two, $three) {
-    $text = "First word: $one\n";
-    $text .= "Second word: $two\n";
-    $text .= "Third word: $three";
-
-    return Bot::sendMessage($text);
-});
-
-/* simple file upload
-$bot->cmd('/upload', function () {
-    $file = './composer.json';
-
-    return Bot::sendDocument($file);
-});*/
-
 // inline keyboard
-$bot->cmd('/keyboard', function () {
+$bot->cmd('/about', function () {
     $keyboard[] = [
-        ['text' => 'PHPTelebot', 'url' => 'https://github.com/radyakaze/phptelebot'],
-        ['text' => 'Haru bot', 'url' => 'https://telegram.me/harubot'],
+        ['text' => 'Website', 'url' => 'https://ucuncs89.com'],
+        ['text' => 'About', 'url' => 'https://telegram.me/ucuncs89'],
     ];
     $options = [
         'reply_markup' => ['inline_keyboard' => $keyboard],
     ];
 
-    return Bot::sendMessage('Inline keyboard', $options);
+    return Bot::sendMessage('About', $options);
 });
 
 // custom regex
-$bot->regex('/\/number ([0-9]+)/i', function ($matches) {
-    return Bot::sendMessage($matches[1]);
-});
 
 // Inline
 $bot->on('inline', function ($text) {
