@@ -13,8 +13,8 @@ $bot->cmd('/all', function () {
     $userId = $message['from']['id'];
     
     $file = "https://api.kawalcorona.com/indonesia/";
-    $anggota = file_get_contents($file);
-    $data = json_decode($anggota, true);
+    $lokasi = file_get_contents($file);
+    $data = json_decode($lokasi, true);
 
     $text = 'Info di <b>'.$data[0]['name'].'</b> Data Positif <code>'.$data[0]['positif'].'</code> Sembuh <code>'.$data[0]['sembuh'].'</code> Meninggal<code>'.$data[0]['meninggal'].'</code>';
     $options = [
@@ -30,10 +30,10 @@ $bot->cmd('/dkijakarta', function () {
     $userId = $message['from']['id'];
     
     $file = "https://api.kawalcorona.com/indonesia/provinsi";
-    $anggota = file_get_contents($file);
-    $data = json_decode($anggota, true);
+    $lokasi = file_get_contents($file);
+    $data = json_decode($lokasi, true);
 
-    $text = 'Info di <b>'.$data1[0]['attributes']['Provinsi'].'</b> Data Positif <code>'.$data1[0]['attributes']['Kasus_Posi'].'</code> Sembuh <code>'.$data1[0]['attributes']['Kasus_Semb'].'</code> Meninggal<code>'.$data1[0]['attributes']['Kasus_Meni'].'</code>';
+    $text = 'Info di <b>'.$data[0]['attributes']['Provinsi'].'</b> Data Positif <code>'.$data[0]['attributes']['Kasus_Posi'].'</code> Sembuh <code>'.$data[0]['attributes']['Kasus_Semb'].'</code> Meninggal<code>'.$data1[0]['attributes']['Kasus_Meni'].'</code>';
     $options = [
         'parse_mode' => 'html',
         'reply' => true,
