@@ -45,7 +45,7 @@ $data = json_decode($anggota, true);
     return Bot::sendMessage($text, $options);
 });
 
-/* slice text by space
+//slice text by space
 $bot->cmd('/split', function ($one, $two, $three) {
     $text = "First word: $one\n";
     $text .= "Second word: $two\n";
@@ -72,7 +72,7 @@ $bot->cmd('/keyboard', function () {
     ];
 
     return Bot::sendMessage('Inline keyboard', $options);
-}); */
+});
 
 // custom regex
 $bot->regex('/\/number ([0-9]+)/i', function ($matches) {
